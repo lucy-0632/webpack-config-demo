@@ -81,6 +81,9 @@ module.exports = {
     // new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
+    runtimeChunk: {
+      name: "runtime"//此项设置会生成runtime.js文件，用来存储manifest (即main.js与vendor.js代码之间的关系),主要是为了解决老版本中contenthash处理
+    },
     splitChunks:{
       chunks: 'all',//async只对异步代码生效 all为同步、异步都做代码分割，initial为同步代码分割
       minSize: 30000,//引入的代码大于30kb做代码分割，如果小于30kb不做代码分割

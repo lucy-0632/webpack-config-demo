@@ -89,5 +89,9 @@ const prodConfig = {
   // optimization: {
   //   usedExports: true //tree shaking用来只打包业务代码需要模块，打包开发环境使用tree shaking 只支持ES module模式引入 不需要使用tree shaking的文件需要在package.json中通过设置"sideEffects":["@babel/polly-fill"]来实现
   // }
+  output:{
+    filename:'[name].[contenthash].js',//contenthash 如果内容变化会更改hash值否则不变，方便浏览器使用缓存
+    chunkFilename:'[name].[contenthash].js',
+  }
 };
 module.exports= merge(commonConfig,prodConfig)
