@@ -4,6 +4,7 @@
 // element.innerHTML=_.join(['dell','lee'],'-');
 // document.body.appendChild(element);
 console.log(this);
+console.log(library);
 // import {ui} from './ui';
 // ui();
 // //异步引入
