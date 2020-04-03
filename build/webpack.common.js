@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin=require('html-webpack-plugin'); //会在打包结束后自动生成html文件并把打包生成js自动引入到html中
 const { CleanWebpackPlugin }=require('clean-webpack-plugin'); //先清除原有的打包目录再进行打包
+const webpack=require('webpack');
 module.exports = {
   entry: {
     // lodash:'./src/lodash.js',
@@ -17,7 +18,12 @@ module.exports = {
       {
         test:/\.js$/,
         exclude:/node_modules/,//第三方模块不需要转化
-        loader:"babel-loader",
+        use:[{
+          loader: "babel-loader"
+        },{
+          loader: "imports-loader?this=>window"//this默认指向当前模块，此配置将this指向window
+        }]
+        // loader:"babel-loader",
         // options:{
         //   "presets":[["@babel/preset-env",{
         //     targets:{
@@ -79,6 +85,11 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     // new webpack.HotModuleReplacementPlugin()
+    //垫片shimming
+    new webpack.ProvidePlugin({
+      $:'jquery',
+      _:'lodash'
+    })
   ],
   optimization: {
     runtimeChunk: {
